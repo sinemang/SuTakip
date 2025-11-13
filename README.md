@@ -8,9 +8,10 @@ Rive animasyonlarıyla görselleştirilmiş su seviyesi göstergesi içerir.
 - Firebase Firestore bağlantısı (veri kaydı)
 - Rive tabanlı animasyonlu su seviyesi
 - Responsive arayüz
+- Kimlik doğrulama (Firebase Auth)
 
 ## Yapılacaklar
-- [ ] Kimlik doğrulama (Firebase Auth)
+- [ ] Data Storage (Cloud Firestore ile kullanıcı günlük su takibi ve kullanıcının hedef miktarı)
 - [ ] Bildirim sistemi
 - [ ] Testler ve Play Store yayını
 

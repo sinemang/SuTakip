@@ -5,7 +5,7 @@ import 'package:water_reminder/firebase_options.dart';
 import 'app/routes.dart';
 import 'app/theme.dart';
 import 'core/firebase/auth_service.dart';
-import 'firebase_options.dart';
+import 'features/water/controllers/water_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,10 +13,7 @@ void main() async {
 
   final authService =AuthService();//auth servis nesnesi oluşturuldu,firebase auth erişimi hazır
   await authService.signInAnonymouslyIfNeeded();//çağırıldı ve otomatik anonim oturum açıldı
-
-  print("current user UID: ${authService.uid}");
-
-
+  Get.put(HomeController());
   runApp(const WaterReminderApp());
 }
 

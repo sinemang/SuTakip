@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:water_reminder/features/water/presentation/water_home_screen.dart';
 import 'package:water_reminder/features/water/presentation/water_tracker_screen.dart';
 import 'package:liquid_wave_animate_button/liquid_wave_animate_button.dart';
 import 'package:lottie/lottie.dart';
+
+import '../controllers/water_controller.dart';
 
 class WaterCalculationScreen extends StatelessWidget {
   final double weight;
@@ -12,21 +17,13 @@ class WaterCalculationScreen extends StatelessWidget {
     required this.weight,
     required this.age,
   });
-
   @override
   Widget build(BuildContext context) {
-    double waterAmount = weight * 0.03; // Hesaplanan günlük su miktarı
+    // Hesaplanan günlük su miktarı
+    final controller = Get.find<HomeController>();
+    double waterAmount = controller.useCase
+        .calculateDailyGoal(weight, age);//use casei çağırır sadece sonucu gösterir.
 
-    void _goToTrackerScreen() {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => WaterTrackerScreen(
-            dailyGoal: waterAmount, // Tracker ekranına gönderiyoruz
-          ),
-        ),
-      );
-    }
 
     return Scaffold(
       appBar: AppBar(title: const Text('Su Hesaplama Sonucu')),
@@ -43,7 +40,11 @@ class WaterCalculationScreen extends StatelessWidget {
             ),
             const SizedBox(height: 92),
             LiquidWaveAnimateButton(buttonName: 'Takip Etmeye Başla',width: 300,height: 60,fillLevel: 0.8,liquidColor: Colors.blue,ariseAnimation: true,ariseDuration: const Duration(seconds: 2),borderColor: Colors.white,borderWidth: 2.0,backgroundColor: Colors.black,textStyle: const TextStyle(color:Colors.white,fontWeight: FontWeight.bold),
-            onPressed: _goToTrackerScreen ),
+              onPressed: () {
+                // GÜNLÜK HEDEFİ CONTROLLER'A KAYDET
+                controller.dailyGoal.value = waterAmount;
+                Get.offAll(() => WaterHomeScreen());
+              },),
 
           ],
         ),

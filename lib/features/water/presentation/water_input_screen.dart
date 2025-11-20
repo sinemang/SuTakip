@@ -7,18 +7,15 @@ import 'water_calculation_screen.dart';
 class WaterInputScreen extends StatelessWidget {
   WaterInputScreen({super.key});
 
-  final HomeController controller = Get.put(HomeController());
+  final HomeController controller = Get.find();
 
   void _goToCalculationScreen(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => WaterCalculationScreen(
-          weight: controller.weight.value,
-          age: controller.age.value,
-        ),
-      ),
-    );
+
+    // CalculationScreen'e git (navigator yerine Get kullan)
+    Get.to(() => WaterCalculationScreen(
+      weight: controller.weight.value,
+      age: controller.age.value,
+    ));
   }
 
   @override
